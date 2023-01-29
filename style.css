@@ -1,0 +1,428 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0 none;
+  box-sizing: border-box;
+  font-family: "Noto Sans";
+  color: rgb(26, 27, 27);
+}
+
+.bravo-hide {
+  display: none;
+}
+
+html, body, main {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+main {
+  position: relative;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.33rem;
+}
+
+main.k8-svg-inserted {
+  /* background-color: #f8f9fa; */
+
+  --delay: 100ms;
+  --k8-fade: 1s;
+  --k8-shrink: 0.5s;
+  --k8-delay: calc(var(--k8-fade) + var(--k8-shrink));
+}
+
+main.k8-svg-inserted .k8-svg-outer {
+  width: 100%;
+}
+
+main.k8-svg-inserted .k8-svg {
+  position: absolute;
+  z-index: 1;
+  top: 50%;
+  left: 50%;
+  right: 0;
+  bottom: 0;
+
+  animation: k8-svg var(--k8-delay) cubic-bezier(0.23, 1, 0.32, 1) var(--delay) 1 normal both running;
+}
+
+@keyframes k8-svg {
+  0% {
+    transform: translateY(calc(-50% + 30px)) translateX(-50%) scale(0.95, 0.95);
+    opacity: 0; 
+  }
+  50% {
+    top: 50%;
+    left: 50%;
+    opacity: 1;
+    transform: translateY(calc(-50%)) translateX(-50%) rotateY(0turn) scale(1, 1);
+  }
+  100% {
+    top: 47px;
+    left: 50px;
+    transform: translateY(calc(-50%)) translateX(-50%) rotateY(-0.5turn) scale(0.1, 0.1);
+  }
+}
+
+
+header {
+  width: 100%;
+  height: 95px;
+
+  display: flex;
+  align-items: center;
+
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px;
+
+  animation: header-in calc(var(--k8-shrink) - 0.1s) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + 0.1s) 1 normal both running
+}
+
+@keyframes header-in {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+
+  to {
+    opacity: 1;
+    background: linear-gradient(45deg, #e0e4f0, #e0e4f0, #cde4f1);
+    box-shadow: 
+      0 10px 5px -5px rgba(207, 210, 223, 0.5),
+      0 20px 10px -10px rgba(207, 210, 223, 0.4),
+      0 30px 15px -15px rgba(198, 203, 221, 0.3);
+    transform: translateY(0px);
+  }
+}
+
+header h1 {
+  font-family: Ubuntu;
+  font-size: 3rem;
+  font-weight: 700;
+
+  animation: text-in calc(var(--k8-shrink) - 0.1s) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + .1s) 1 normal both running;
+}
+
+@media (max-width: 750px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 550px) {
+  header h1 {
+    font-size: 2rem;
+  }
+}
+
+@keyframes text-in {
+  from {
+    opacity: 0;
+    transform: translateX(70px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(100px);
+  }
+}
+
+
+section {
+  --c: 175ms; /* constant duration to wait */
+  --duration: 300ms;
+  --multiplier: 100ms;
+
+  margin: 10px 15px;
+}
+
+h2.readyness {
+  font-size: 2rem;
+
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 1)) 1 normal both running;
+}
+
+.charts {
+  margin: 15px 0;
+
+  /* display: flex;
+  align-items: center;
+  justify-content: center; */
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) minmax(200px, 1fr) minmax(200px, 1fr);
+}
+
+@media (max-width: 400px) {
+  /* would do this, but chartjs has weird debounce that only makes canvas reppear after ~2s. dont want to investigate for now */
+  /* #deployments-wrapper {
+    display: none;
+  }
+  
+  .canvas-wrapper {
+    width: 40vw !important;
+    margin: 15px !important;
+  } */
+}
+
+.charts #replica-sets-wrapper {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 2)) 1 normal both running;
+}
+
+.charts #deployments-wrapper {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 3)) 1 normal both running;
+}
+
+.charts #pods-wrapper {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 4)) 1 normal both running;
+}
+
+#tt-wrap {
+  padding: 0 40px 0 10px;
+}
+
+.canvas-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: cener;
+  justify-concent: center;
+  /* flex: 1; */
+  width: 100%;
+}
+
+.canvas-wrapper h3 {
+  margin: 10px;
+
+  text-align: center;
+}
+
+@keyframes fade-in-regular {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* .button-dash {
+  margin-top: 30px;
+} */
+
+h2.extended {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 5)) 1 normal both running;
+}
+
+.charts2 {
+  margin: 15px 0;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.bottom-dash article {
+  /* display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 50vw; */
+
+}
+
+@media (max-width: 600px) {
+  .bottom-dash:nth-child(1) {
+    display: none;
+  }
+
+  /* .bottom-dash > * {
+    display: block;
+  } */
+}
+
+#tt-wrap {
+  display: flex;
+  justify-content: center;
+  max-width: 700px;
+}
+
+.bottom-dash #traffic-wrapper {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 6)) 1 normal both running;
+}
+
+.bottom-dash #notices {
+  animation: fade-in-regular calc(var(--duration) * 1) cubic-bezier(0.23, 1, 0.32, 1) calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 7)) 1 normal both running;
+}
+
+.notices-wrapper {
+  position: relative;
+  width: 100%;
+  height: 0;
+  /* padding-bottom: 38%; */
+}
+
+.notices-outer {
+  position: absolute;
+  top: 20px;
+  right: 40px;
+  bottom: 20px;
+  left: 10px;
+}
+
+@media (min-width: 700px) {
+  .notices-outer {
+    right: 60px;
+  }
+}
+
+.notices {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  --c2: calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 7)); /* duplicate */
+  --c3: calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 8));
+  --c4: calc(var(--k8-fade) + var(--c) + calc(var(--multiplier) * 9));
+}
+
+.notice-span {
+  display: block;
+  padding: 11px;
+  text-align: center;
+  border-radius: 10px;
+  background: linear-gradient(45deg, #e0e4f0, #e0e4f0, #cde4f1);
+  box-shadow: 
+  0 10px 5px -5px rgba(207, 210, 223, 0.5),
+  0 20px 10px -10px rgba(207, 210, 223, 0.4),
+  0 30px 15px -15px rgba(198, 203, 221, 0.3);
+  position: absolute;
+  font-size: 1.125rem;
+  width: 100%;
+}
+
+h3.traffic {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: auto;
+  text-align: center;
+}
+
+.to-gone {
+  animation: gone-to-dead var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+.zero {
+  animation: first-to-gone-out var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+.first {
+  animation: second-to-first var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+.second {
+  animation: third-to-second var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+.third {
+  animation: gone-to-third var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+.from-gone {
+  animation: dead-to-gone var(--duration) cubic-bezier(0.23, 1, 0.32, 1) var(--c3) 1 normal both running;
+}
+
+/* correct way to read these transitions is from down to up (starting from gone-to-third) */
+@keyframes gone-to-dead {
+  to {
+    transform: translateY(-45px);
+    opacity: 0;
+  }
+  from {
+    transform: translateY(-30px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes first-to-gone-out {
+  to {
+    transform: translateY(-30px);
+    opacity: 0.2;
+  }
+  from {
+    transform: translateY(0px);
+    z-index: 1;
+  }
+}
+
+@keyframes second-to-first {
+  to {
+    transform: translateY(0px);
+    z-index: 1;
+  }
+  from {
+    transform: translateY(40px) scale(1.1, 1.1);
+    box-shadow: 
+      0 10px 10px -5px rgba(207, 210, 223, 0.5),
+      0 20px 15px -10px rgba(207, 210, 223, 0.4),
+      0 30px 20px -15px rgba(198, 203, 221, 0.3);
+    z-index: 2;
+  }
+}
+
+@keyframes third-to-second {
+  to {
+    transform: translateY(40px) scale(1.1, 1.1);
+    box-shadow: 
+      0 10px 10px -5px rgba(207, 210, 223, 0.5),
+      0 20px 15px -10px rgba(207, 210, 223, 0.4),
+      0 30px 20px -15px rgba(198, 203, 221, 0.3);
+    z-index: 3;
+  }
+  from {
+    opacity: 1;
+    transform: translateY(80px) scale(1, 1);
+    z-index: 1;
+  }
+}
+
+@keyframes gone-to-third {
+  to {
+    opacity: 1;
+    transform: translateY(80px) scale(1, 1);
+    z-index: 2;
+  }
+
+  from {
+    opacity: 0.2;
+    transform: translateY(110px) scale(0.9, 0.9);
+    z-index: 1;
+  }
+}
+
+@keyframes dead-to-gone {
+  to {
+    opacity: 0.2;
+    transform: translateY(110px) scale(0.9, 0.9);
+    z-index: 1;
+  }
+  from {
+    opacity: 0;
+    transform: translateY(125px) scale(0.8, 0.8);
+  }
+}
+
+.canvas-wrapper canvas {
+  filter: drop-shadow(5px 30px 10px rgba(198, 203, 221, 0.3));
+  /* 0 30px 20px -15px rgba(198, 203, 221, 0.3) */
+}
+
+canvas {
+  filter: drop-shadow(5px 10px 5px rgba(198, 203, 221, 0.3));
+}
